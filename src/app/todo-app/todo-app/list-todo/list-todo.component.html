@@ -1,0 +1,61 @@
+<div class="list-todo">
+  <table class="table table-striped table-inverse table-responsive">
+    <thead class="thead-inverse">
+      <tr>
+        <th>No.</th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of renderListTodo; index as index">
+        <td scope="row">{{ index + 1 }}</td>
+
+        <td *ngIf="item.edited; else editedInput">
+          <input
+            type="text"
+            [value]="item.title"
+            (input)="changeValueInput($event, item)"
+          />
+        </td>
+        <ng-template #editedInput>
+          <td [style]="item.completed ? styleComplete : null">
+           <p> {{ item.title }}</p>
+          </td>
+        </ng-template>
+
+        <td *ngIf="item.completed; else notYet">Done</td>
+        <ng-template #notYet>
+          <td>Not yet</td>
+        </ng-template>
+
+        <td>
+          <button class="btn btn-success" (click)="completeTodo(item)">
+            COMPLETE
+          </button>
+
+          <button
+            class="btn btn-success"
+            *ngIf="item.edited; else edited"
+            (click)="doneEdit(item)"
+          >
+            DONE
+          </button>
+          <ng-template #edited>
+            <button class="btn btn-primary" (click)="editTodo(item)">
+              EDIT
+            </button>
+          </ng-template>
+
+          <button (click)="deleteTodo(index)" class="btn btn-danger">
+            DEL
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- <input type="text" (input)="changeValueInput($event)" >
+<p>{{todoTitle}}</p> -->

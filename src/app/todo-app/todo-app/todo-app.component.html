@@ -1,0 +1,7 @@
+<section class="todo-app">
+  <h2>TODO-APP</h2>
+
+  <app-create-todo (createTodo)="addNew($event)"></app-create-todo>
+
+  <app-list-todo [renderListTodo]="listTodo"></app-list-todo>
+</section>
